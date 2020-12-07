@@ -1,3 +1,4 @@
+### logs
 
 *** Trying to get logs (last 100 lines) from worker pod funlogslogtesttask-3fffe1e13e574b428b42c851a0f31ae0 ***
 
