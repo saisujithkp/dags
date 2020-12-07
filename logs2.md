@@ -7,6 +7,7 @@
 Running <TaskInstance: fun_logs.log_test_task 2019-07-26T04:45:00+00:00 [queued]> on host funlogslogtesttask-3fffe1e13e574b428b42c851a0f31ae0
 
 ### Task code
+```
 import logging
 from datetime import datetime, timedelta
 from airflow import DAG
@@ -30,6 +31,7 @@ def logging_is_fun():
 
 with DAG('fun_logs', schedule_interval='45 * * * *', default_args=default_args) as dag:
     log_task = PythonOperator(python_callable=logging_is_fun, task_id='log_test_task')
+```
     
 ### configuration set via helm chart
     config:
