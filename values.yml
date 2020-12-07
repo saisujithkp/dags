@@ -1,0 +1,509 @@
+airflow:
+  image:
+    repository: apache/airflow
+    tag: 1.10.12-python3.6
+    
+    pullPolicy: IfNotPresent
+    pullSecret: ""
+  executor: "KubernetesExecutor"
+  fernetKey: "7T512UXSSmBOkpWimFHIVb8jK6lfmSAvx4mO6Arehnc="
+  config: {
+    AIRFLOW__KUBERNETES__DAGS_IN_IMAGE: "True"
+  }
+  podAnnotations: {}
+  affinity: {}
+  tolerations: []
+  securityContext: {}
+  labels: {}
+  podLabels: {}
+  annotations: {}
+  podAnnotations: {}
+  safeToEvict: true
+  podDisruptionBudget:
+    enabled: true
+    maxUnavailable: "100%"
+    minAvailable: ""
+  connections: []
+  refreshConnections: true
+  existingSecretConnections: ""
+  
+  variables: |
+    {}
+  
+  pools: |
+    {}
+  
+  numRuns: -1
+  
+  initdb: true
+  
+  preinitdb: false
+  
+  initialStartupDelay: 0
+  
+  livenessProbe:
+    enabled: true
+    
+    initialDelaySeconds: 300
+    periodSeconds: 30
+    failureThreshold: 5
+  
+  extraInitContainers: []
+web:
+  
+  resources: {}
+  
+  replicas: 1
+  
+  nodeSelector: {}
+  
+  affinity: {}
+  
+  tolerations: []
+  
+  securityContext: {}
+  
+  labels: {}
+  
+  podLabels: {}
+  
+  annotations: {}
+  
+  podAnnotations: {}
+  
+  safeToEvict: true
+  
+  podDisruptionBudget:
+    
+    enabled: false
+    
+    maxUnavailable: ""
+    
+    minAvailable: ""
+  
+  service:
+    annotations: {}
+    sessionAffinity: "None"
+    sessionAffinityConfig: {}
+    type: ClusterIP
+    externalPort: 8080
+    loadBalancerIP: ""
+    loadBalancerSourceRanges: []
+    nodePort:
+      http: ""
+  
+  baseUrl: "http://localhost:8080"
+  
+  serializeDAGs: false
+  
+  extraPipPackages: []
+  
+  initialStartupDelay: 0
+  
+  minReadySeconds: 5
+  
+  readinessProbe:
+    enabled: false
+    scheme: HTTP
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 1
+    successThreshold: 1
+    failureThreshold: 3
+  
+  livenessProbe:
+    enabled: true
+    scheme: HTTP
+    
+    initialDelaySeconds: 300
+    periodSeconds: 30
+    timeoutSeconds: 3
+    successThreshold: 1
+    failureThreshold: 2
+  
+  secretsDir: /var/airflow/secrets
+  
+  secrets: []
+  
+  secretsMap: ""
+workers:
+  
+  enabled: false
+  
+  resources: {}
+  
+  replicas: 1
+  
+  nodeSelector: {}
+  
+  affinity: {}
+  
+  tolerations: []
+  
+  securityContext: {}
+  
+  labels: {}
+  
+  podLabels: {}
+  
+  annotations: {}
+  
+  podAnnotations: {}
+  
+  safeToEvict: true
+  
+  podDisruptionBudget:
+    
+    enabled: false
+    
+    maxUnavailable: ""
+    
+    minAvailable: ""
+  
+  autoscaling:
+    enabled: false
+    maxReplicas: 2
+    metrics: []
+  
+  initialStartupDelay: 0
+  
+  celery:
+    
+    instances: 16
+    
+    gracefullTermination: false
+    
+    gracefullTerminationPeriod: 600
+  
+  terminationPeriod: 60
+  
+  secretsDir: /var/airflow/secrets
+  
+  secrets: []
+  
+  secretsMap: ""
+flower:
+  
+  enabled: false
+  
+  resources: {}
+  
+  replicas: 1
+  
+  nodeSelector: {}
+  
+  affinity: {}
+  
+  tolerations: []
+  
+  securityContext: {}
+  
+  labels: {}
+  
+  podLabels: {}
+  
+  annotations: {}
+  
+  podAnnotations: {}
+  
+  safeToEvict: true
+  
+  podDisruptionBudget:
+    
+    enabled: false
+    
+    maxUnavailable: ""
+    
+    minAvailable: ""
+  
+  oauthDomains: ""
+  
+  basicAuthSecret: ""
+  
+  basicAuthSecretKey: ""
+  
+  urlPrefix: ""
+  
+  service:
+    annotations: {}
+    type: ClusterIP
+    externalPort: 5555
+    loadBalancerIP: ""
+    loadBalancerSourceRanges: []
+    nodePort:
+      http: ""
+  
+  initialStartupDelay: 0
+  
+  minReadySeconds: 5
+  
+  extraConfigmapMounts: []
+logs:
+  
+  path: /opt/airflow/logs
+  
+  persistence:
+    
+    enabled: false
+    
+    existingClaim: ""
+    
+    subPath: ""
+    
+    storageClass: ""
+    
+    accessMode: ReadWriteMany
+    
+    size: 1Gi
+dags:
+  
+  path: /airflow-fuzzing/dags
+  
+  doNotPickle: false
+  
+  installRequirements: false
+  
+  persistence:
+    
+    enabled: false
+    
+    existingClaim: ""
+    
+    subPath: ""
+    
+    storageClass: ""
+    
+    accessMode: ReadOnlyMany
+    
+    size: 1Gi
+  
+  git:
+    
+    url: https://sai.sujith.sirigiri@password1:kpmi-bitbucket.appl.kp.org/bitbucket/scm/devops/airflow-fuzzing.git
+    
+    ref: master
+    
+    secret: ""
+    
+    sshKeyscan: false
+    
+    privateKeyName: id_rsa
+    
+    repoHost: ""
+    
+    repoPort: 22
+    
+    gitSync:
+      
+      enabled: false
+      
+      resources: {}
+      
+      image:
+        repository: alpine/git
+        tag: latest
+        
+        pullPolicy: Always
+      
+      refreshTime: 60
+  
+  initContainer:
+    
+    enabled: false
+    
+    resources: {}
+    
+    image:
+      repository: alpine/git
+      tag: latest
+      
+      pullPolicy: Always
+    
+    mountPath: "/dags"
+    
+    syncSubPath: ""
+ingress:
+  
+  enabled: false
+  
+  web:
+    
+    annotations: {}
+    
+    labels: {}
+    
+    path: ""
+    
+    host: ""
+    
+    livenessPath: ""
+    
+    tls:
+      
+      enabled: false
+      
+      secretName: ""
+    
+    precedingPaths: []
+    
+    succeedingPaths: []
+  
+  flower:
+    
+    annotations: {}
+    
+    labels: {}
+    
+    path: ""
+    
+    host: ""
+    
+    livenessPath: ""
+    
+    tls:
+      
+      enabled: false
+      
+      secretName: ""
+    
+    precedingPaths: []
+    
+    succeedingPaths: []
+rbac:
+  
+  create: true
+  
+  events: false
+serviceAccount:
+  
+  create: true
+  
+  name: ""
+  
+  annotations: {}
+extraManifests: []
+postgresql:
+  
+  enabled: true
+  
+  postgresqlDatabase: airflow
+  
+  postgresqlUsername: postgres
+  
+  postgresqlPassword: airflow
+  
+  existingSecret: ""
+  
+  existingSecretKey: "postgresql-password"
+  
+  persistence:
+    
+    enabled: true
+    
+    storageClass: ""
+    
+    accessModes:
+      - ReadWriteOnce
+    
+    size: 8Gi
+  
+  master:
+    
+    podAnnotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+externalDatabase:
+  
+  type: postgres
+  
+  host: localhost
+  
+  port: 5432
+  
+  database: airflow
+  
+  user: airflow
+  
+  passwordSecret: ""
+  
+  passwordSecretKey: "postgresql-password"
+  
+  properties: ""
+redis:
+  
+  enabled: false
+  
+  password: airflow
+  
+  existingSecret: ""
+  
+  existingSecretPasswordKey: "redis-password"
+  
+  cluster:
+    
+    enabled: false
+    
+    slaveCount: 1
+  
+  master:
+    
+    resources: {}
+    
+    podAnnotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    
+    persistence:
+      
+      enabled: false
+      
+      storageClass: ""
+      
+      accessModes:
+      - ReadWriteOnce
+      
+      size: 8Gi
+  
+  slave:
+    
+    resources: {}
+    
+    podAnnotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    
+    persistence:
+      
+      enabled: false
+      
+      storageClass: ""
+      
+      accessModes:
+        - ReadWriteOnce
+      
+      size: 8Gi
+externalRedis:
+  
+  host: localhost
+  
+  port: 6379
+  
+  databaseNumber: 1
+  
+  passwordSecret: ""
+  
+  passwordSecretKey: "redis-password"
+serviceMonitor:
+  
+  enabled: false
+  
+  selector:
+    prometheus: kube-prometheus
+  
+  path: /admin/metrics
+  
+  interval: "30s"
+prometheusRule:
+  
+  enabled: false
+  
+  additionalLabels: {}
+  
+  groups: []
