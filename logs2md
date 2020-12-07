@@ -1,3 +1,5 @@
+Logs
+
 *** Trying to get logs (last 100 lines) from worker pod funlogslogtesttask-3fffe1e13e574b428b42c851a0f31ae0 ***
 
 [2020-12-07 20:49:28,624] {__init__.py:50} INFO - Using executor LocalExecutor
