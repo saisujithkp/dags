@@ -1,4 +1,3 @@
-Logs
 
 *** Trying to get logs (last 100 lines) from worker pod funlogslogtesttask-3fffe1e13e574b428b42c851a0f31ae0 ***
 
@@ -6,6 +5,7 @@ Logs
 [2020-12-07 20:49:28,625] {dagbag.py:417} INFO - Filling up the DagBag from /opt/airflow/dags/dags/show_some_logs.py
 Running <TaskInstance: fun_logs.log_test_task 2019-07-26T04:45:00+00:00 [queued]> on host funlogslogtesttask-3fffe1e13e574b428b42c851a0f31ae0
 
+### Task code
 import logging
 from datetime import datetime, timedelta
 from airflow import DAG
@@ -30,6 +30,7 @@ def logging_is_fun():
 with DAG('fun_logs', schedule_interval='45 * * * *', default_args=default_args) as dag:
     log_task = PythonOperator(python_callable=logging_is_fun, task_id='log_test_task')
     
+### configuration set via helm chart
     config:
       AIRFLOW__KUBERNETES__GIT_REPO: "ssh://git@kpmi-bitbucket.appl.kp.org:7999/devops/airflow-dags.git"
       AIRFLOW__KUBERNETES__GIT_BRANCH: "master"
