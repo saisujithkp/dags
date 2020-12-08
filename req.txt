@@ -1,0 +1,14 @@
+- Deploying airflow in kubernetes cluster (Local)
+	- Using the official helm chart. 
+		- https://github.com/airflow-helm/charts/tree/main/charts/airflow
+	- My current issues
+		- https://github.com/airflow-helm/charts/issues/30
+	- My current values file
+		- https://github.com/saisujithkp/dags/blob/main/values.yml
+- Creating an image for the spark based machine learning project.
+- Breakdown a python project and optimize it. 
+- Schedule the python project using airflow.
+
+
+
+	
